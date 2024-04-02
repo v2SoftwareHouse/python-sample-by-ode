@@ -14,6 +14,7 @@ from plugin.feature.homeList.repository_impl import RepositoryImpl
 
 
 class HomeListView(ListView, Presenter):
+    #TODO move to GatewayInjector singleton
     presenter = PresenterImpl(fetcher=GETUseCase(repo=RepositoryImpl()))
     
     def get_queryset(self) -> QuerySet[Any]:

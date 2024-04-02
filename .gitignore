@@ -112,4 +112,5 @@ static_collected
 __pycache__
 
 db.*
+
 .devcontainer
