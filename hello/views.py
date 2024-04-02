@@ -1,16 +1,27 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import redirect, render
 from django.utils.timezone import datetime
 from django.views.generic import ListView
 
+
+from feature.homeList.gateway.presenter import Presenter
+from feature.homeList.business.get import GETUseCase
 from hello.forms import LogMessageForm
 from hello.models import LogMessage
+from plugin.feature.homeList.gateway.presenter_impl import PresenterImpl
+from plugin.feature.homeList.repository_impl import RepositoryImpl
 
 
-class HomeListView(ListView):
-    """Renders the home page, with a list of all polls."""
+class HomeListView(ListView, Presenter):
+    presenter = PresenterImpl(fetcher=GETUseCase(repo=RepositoryImpl()))
+    
+    def get_queryset(self) -> QuerySet[Any]:
+        return self.do_fetch(size=2)
 
-    model = LogMessage
-
+    def do_fetch(self, size :int) -> LogMessage:
+        return self.presenter.do_fetch(size=size)
+    
     def get_context_data(self, **kwargs):
         context = super(HomeListView, self).get_context_data(**kwargs)
         return context
