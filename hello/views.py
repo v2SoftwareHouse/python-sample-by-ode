@@ -5,6 +5,7 @@ from django.utils.timezone import datetime
 from django.views.generic import ListView
 
 
+from feature.homeList.gateway.gateway_injector import GatewayInjector
 from feature.homeList.gateway.presenter import Presenter
 from feature.homeList.business.get import GETUseCase
 from hello.forms import LogMessageForm
@@ -14,11 +15,10 @@ from plugin.feature.homeList.repository_impl import RepositoryImpl
 
 
 class HomeListView(ListView, Presenter):
-    #TODO move to GatewayInjector singleton
-    presenter = PresenterImpl(fetcher=GETUseCase(repo=RepositoryImpl()))
+    presenter = GatewayInjector.presenter
     
     def get_queryset(self) -> QuerySet[Any]:
-        return self.do_fetch(size=2)
+        return self.do_fetch(size=1)
 
     def do_fetch(self, size :int) -> LogMessage:
         return self.presenter.do_fetch(size=size)

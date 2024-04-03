@@ -7,7 +7,7 @@ class GatewayInjector:
         pass
 
     @property
-    def presenter(self):
+    def presenter(self) -> Presenter:
         if self.self is None:
             raise RuntimeError("GatewayInjector.self not initialized")
         return self.self.presenter
