@@ -1,6 +1,6 @@
 from django.urls import path
 
-from hello import views
+from hello.feature.home.view import views
 
 home_list_view = views.HomeListView.as_view(
     context_object_name="message_list",

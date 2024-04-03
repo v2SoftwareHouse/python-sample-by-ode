@@ -1,6 +1,6 @@
 from django import forms
 
-from hello.models import LogMessage
+from hello.feature.home.domain.models import LogMessage
 
 class LogMessageForm(forms.ModelForm):
     class Meta:

@@ -4,24 +4,26 @@ from django.shortcuts import redirect, render
 from django.utils.timezone import datetime
 from django.views.generic import ListView
 
-
-from feature.homeList.gateway.gateway_injector import GatewayInjector
-from feature.homeList.gateway.presenter import Presenter
-from feature.homeList.business.get import GETUseCase
-from hello.forms import LogMessageForm
-from hello.models import LogMessage
-from plugin.feature.homeList.gateway.presenter_impl import PresenterImpl
-from plugin.feature.homeList.repository_impl import RepositoryImpl
-
+from hello.feature.home.gateway.gateway_injector import GatewayInjector
+from hello.feature.home.gateway.presenter import Presenter
+from hello.feature.home.domain.forms import LogMessageForm
+from hello.feature.home.domain.models import LogMessage
 
 class HomeListView(ListView, Presenter):
     presenter = GatewayInjector.presenter
     
     def get_queryset(self) -> QuerySet[Any]:
-        return self.do_fetch(size=1)
+        json = self.do_fetch_api(name="Bulbasaur") #try using api experience
+        print(json)
 
-    def do_fetch(self, size :int) -> LogMessage:
-        return self.presenter.do_fetch(size=size)
+        model = self.do_fetch_db(size=2) #try using db experience
+        return model
+    
+    def do_fetch_db(self, size :int) -> LogMessage:
+        return self.presenter.do_fetch_db(size=size)
+    
+    def do_fetch_api(self, name :str) -> Any:
+        return self.presenter.do_fetch_api(name=name)
     
     def get_context_data(self, **kwargs):
         context = super(HomeListView, self).get_context_data(**kwargs)

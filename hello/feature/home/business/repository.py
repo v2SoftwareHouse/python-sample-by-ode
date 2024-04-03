@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from hello.models import LogMessage
+from hello.feature.home.domain.models import LogMessage
 
 class Repository(ABC):
     @abstractmethod
