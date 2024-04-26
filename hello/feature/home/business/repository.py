@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from hello.feature.home.domain.models import LogMessage
+from typing import Any
 
 class Repository(ABC):
     @abstractmethod
-    def do_fetch(self, size: int) -> LogMessage:
+    def do_fetch(self, size: int) -> Any:
         pass
