@@ -2,9 +2,9 @@
 from typing import Any
 from plugin.api.api_builder import PokedexAPIBuilder
 from plugin.api.base_repository import BaseRepository
-from plugin.feature.home.repository_impl import RepositoryImpl
+from hello.feature.home.business.repository import Repository
 
-class RepositoryAPIImpl(BaseRepository, RepositoryImpl):
+class RepositoryAPIImpl(BaseRepository, Repository):
     def __init__(self, url: str):
         super().__init__(url)
 
